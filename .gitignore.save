@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+
+
+# IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+
+# Backend (Spring Boot / Maven)
+api/target/
+!api/.mvn/wrapper/maven-wrapper.jar
+
+# Frontend (Angular / Node)
+web/node_modules/
+web/dist/
+web/.angular/
