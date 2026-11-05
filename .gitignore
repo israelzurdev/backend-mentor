@@ -8,11 +8,11 @@
 *.ipr
 .vscode/
 
-# Backend (Spring Boot / Maven)
+# Backend
 api/target/
 !api/.mvn/wrapper/maven-wrapper.jar
 
-# Frontend (Angular / Node - para cuando lo creemos)
+# Frontend
 web/node_modules/
 web/dist/
 web/.angular/
