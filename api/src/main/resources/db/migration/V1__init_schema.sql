@@ -51,6 +51,8 @@ CREATE TABLE submissions
     total_tests_count  INT          NOT NULL    DEFAULT 0,
     status             VARCHAR(20)  NOT NULL    DEFAULT 'PARTIAL',
     created_at         TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    execution_time_ms  INT,
+    score              INT          NOT NULL    DEFAULT 0,
 
     CONSTRAINT fk_submissions_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     CONSTRAINT fk_submissions_challenge FOREIGN KEY (challenge_id) REFERENCES challenges (id) ON DELETE CASCADE
