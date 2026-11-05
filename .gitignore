@@ -1,18 +1,33 @@
 # macOS
 .DS_Store
 
-# IDEs
+# IDEs y Editores
 .idea/
-*.iml
 *.iws
+*.iml
 *.ipr
 .vscode/
+.classpath
+.project
+.settings/
+.factorypath
+.springBeans
+.sts4-cache/
 
-# Backend
+# Backend (Spring Boot 3 / Maven)
 api/target/
+api/HELP.md
 !api/.mvn/wrapper/maven-wrapper.jar
 
-# Frontend
+# Frontend (Angular 17+ / Node)
 web/node_modules/
 web/dist/
 web/.angular/
+web/.npm/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Entorno y Secretos
+*.env
+*.env.local
