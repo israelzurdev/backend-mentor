@@ -5,7 +5,7 @@ import com.backendmentor.api.challenge.domain.ChallengeRepository;
 import com.backendmentor.api.challenge.domain.Difficulty;
 import com.backendmentor.api.challenge.dto.ChallengeDetailResponse;
 import com.backendmentor.api.challenge.dto.ChallengeSummaryResponse;
-import com.backendmentor.api.shared.domain.ResourceNotFoundException;
+import com.backendmentor.api.shared.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

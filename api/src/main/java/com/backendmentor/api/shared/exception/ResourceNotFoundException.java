@@ -1,4 +1,4 @@
-package com.backendmentor.api.shared.domain;
+package com.backendmentor.api.shared.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
