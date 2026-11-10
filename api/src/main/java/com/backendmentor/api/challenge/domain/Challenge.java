@@ -45,6 +45,16 @@ public class Challenge extends BaseEntity {
 
     }
 
+    // Constructor para que nazca con todos sus datos
+    public Challenge(String title, String slug, Difficulty difficulty, Category category, String descriptionMd) {
+        this.title = title;
+        this.slug = slug;
+        this.difficulty = difficulty;
+        this.category = category;
+        this.descriptionMd = descriptionMd;
+        this.active = true; // Por defecto nace activo
+    }
+
     public void addTestCase(ChallengeTestCase testCase) {
         testCases.add(testCase);
         testCase.setChallenge(this);
