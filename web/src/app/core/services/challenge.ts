@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable} from 'rxjs';
-import { ChallengeSummary, Difficulty } from '../models/challenge.model';
+import { Observable } from 'rxjs';
+import { ChallengeDetail, ChallengeSummary, Difficulty } from '../models/challenge.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,7 @@ export class ChallengeService {
     return this.http.get<ChallengeSummary[]>(this.apiUrl, { params });
   }
 
-  getChallengeBySlug(slug: string): Observable<ChallengeSummary> {
-    return this.http.get<ChallengeSummary>(`${this.apiUrl}/${slug}`);
+  getChallengeBySlug(slug: string): Observable<ChallengeDetail> {
+    return this.http.get<ChallengeDetail>(`${this.apiUrl}/${slug}`);
   }
-
 }

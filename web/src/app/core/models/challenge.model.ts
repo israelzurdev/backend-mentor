@@ -8,3 +8,13 @@ export interface ChallengeSummary {
   difficulty: Difficulty;
   category: Category;
 }
+
+export interface ChallengeDetail {
+  id: string;
+  title: string;
+  slug: string;
+  descriptionMd: string;
+  difficulty: Difficulty;
+  category: Category;
+  createdAt: string;
+}
