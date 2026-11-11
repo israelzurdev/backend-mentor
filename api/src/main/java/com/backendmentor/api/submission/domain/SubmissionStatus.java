@@ -2,7 +2,7 @@ package com.backendmentor.api.submission.domain;
 
 public enum SubmissionStatus {
     PENDING,
-    PROCESSING,
-    SUCCESS,
+    IN_REVIEW,
+    COMPLETED,
     FAILED
 }

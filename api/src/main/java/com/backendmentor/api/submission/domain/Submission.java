@@ -1,81 +1,86 @@
 package com.backendmentor.api.submission.domain;
 
-
 import com.backendmentor.api.challenge.domain.Challenge;
-import com.backendmentor.api.shared.domain.BaseEntity;
-import com.backendmentor.api.user.domain.User;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.time.Instant;
+import java.util.UUID;
 
 @Entity
 @Table(name = "submissions")
-public class Submission extends BaseEntity {
+public class Submission {
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Id
+    @Column(name = "id", nullable = false, updatable = false)
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "challenge_id", nullable = false)
     private Challenge challenge;
 
-    @Column(name = "repo_url", nullable = false)
-    private String repoUrl;
+    @Column(name = "user_identifier", nullable = false, length = 100)
+    private String userIdentifier;
+
+    @Column(name = "github_repo_url", nullable = false, length = 255)
+    private String githubRepoUrl;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
+    @Column(name = "status", nullable = false, length = 30)
     private SubmissionStatus status = SubmissionStatus.PENDING;
 
-    @Column(name = "execution_time_ms")
-    private Integer executionTimeMs;
+    @Column(name = "review_notes", columnDefinition = "TEXT")
+    private String reviewNotes;
 
-    @Column(nullable = false)
-    private int score = 0;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt;
 
-    @OneToMany(mappedBy = "submission", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SubmissionTestResult> testResults = new ArrayList<>();
+    @Column(name = "updated_at", nullable = false)
+    private Instant updatedAt;
 
-    protected Submission() {
-
+    public Submission() {
     }
 
-    // Helper para relación bidireccional
-
-    public void addTestResult(SubmissionTestResult result) {
-        testResults.add(result);
-        result.setSubmission(this);
+    public Submission(UUID id, Challenge challenge, String userIdentifier, String githubRepoUrl) {
+        this.id = id != null ? id : UUID.randomUUID();
+        this.challenge = challenge;
+        this.userIdentifier = userIdentifier;
+        this.githubRepoUrl = githubRepoUrl;
+        this.status = SubmissionStatus.PENDING;
     }
 
-    public void removeTestResult(SubmissionTestResult result) {
-        testResults.remove(result);
-        result.setSubmission(null);
+    @PrePersist
+    protected void onCreate() {
+        if (this.id == null) {
+            this.id = UUID.randomUUID();
+        }
+        Instant now = Instant.now();
+        this.createdAt = now;
+        this.updatedAt = now;
     }
 
-    public List<SubmissionTestResult> getTestResults() {
-        return Collections.unmodifiableList(testResults);
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = Instant.now();
     }
 
-    // Setters y Getters
+    // Getters y Setters
 
-
-    public User getUser() {
-        return user;
+    public UUID getId() {
+        return id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public Challenge getChallenge() {
@@ -86,12 +91,20 @@ public class Submission extends BaseEntity {
         this.challenge = challenge;
     }
 
-    public String getRepoUrl() {
-        return repoUrl;
+    public String getUserIdentifier() {
+        return userIdentifier;
     }
 
-    public void setRepoUrl(String repoUrl) {
-        this.repoUrl = repoUrl;
+    public void setUserIdentifier(String userIdentifier) {
+        this.userIdentifier = userIdentifier;
+    }
+
+    public String getGithubRepoUrl() {
+        return githubRepoUrl;
+    }
+
+    public void setGithubRepoUrl(String githubRepoUrl) {
+        this.githubRepoUrl = githubRepoUrl;
     }
 
     public SubmissionStatus getStatus() {
@@ -102,19 +115,19 @@ public class Submission extends BaseEntity {
         this.status = status;
     }
 
-    public Integer getExecutionTimeMs() {
-        return executionTimeMs;
+    public String getReviewNotes() {
+        return reviewNotes;
     }
 
-    public void setExecutionTimeMs(Integer executionTimeMs) {
-        this.executionTimeMs = executionTimeMs;
+    public void setReviewNotes(String reviewNotes) {
+        this.reviewNotes = reviewNotes;
     }
 
-    public int getScore() {
-        return score;
+    public Instant getCreatedAt() {
+        return createdAt;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public Instant getUpdatedAt() {
+        return updatedAt;
     }
 }
